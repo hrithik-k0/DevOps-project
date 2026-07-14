@@ -31,5 +31,23 @@ pipeline {
                 sh 'docker push $DOCKER_IMAGE'
             }
         }
+         
+         stage('Deploy to K3s') {
+            steps {
+                sh '''
+                kubectl apply -f deployment.yaml
+                kubectl apply -f service.yaml
+                '''
+            }
+        }
+
+        stage('Verify Deployment') {
+            steps {
+                sh '''
+                kubectl get pods
+                kubectl get svc
+                '''
+            }
+        }
     }
 }
