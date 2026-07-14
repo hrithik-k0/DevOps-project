@@ -14,21 +14,21 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-               sudo sh 'docker build -t $DOCKER_IMAGE .'
+                sh 'docker build -t $DOCKER_IMAGE .'
             }
         }
 
         stage('Login to DockerHub') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'docker-creds', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
-                   sudo sh 'echo $PASS | docker login -u $USER --password-stdin'
+                    sh 'echo $PASS | docker login -u $USER --password-stdin'
                 }
             }
         }
 
         stage('Push Image') {
             steps {
-               sudo sh 'docker push $DOCKER_IMAGE'
+                sh 'docker push $DOCKER_IMAGE'
             }
         }
          
