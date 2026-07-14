@@ -35,7 +35,7 @@ pipeline {
          stage('Deploy to K3s') {
             steps {
                 sh '''
-                kubectl apply -f deployment.yaml
+                kubectl apply -f Deployment.yaml
                 kubectl apply -f service.yaml
                 '''
             }
